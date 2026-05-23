@@ -1,0 +1,9 @@
+title: 常夜燈
+description: 常夜燈（JOYATOU）公式サイト
+url: https://joyatou.com
+
+exclude:
+  - .claude/
+  - README.md
+  - Gemfile
+  - Gemfile.lock

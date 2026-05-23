@@ -1,0 +1,406 @@
+/* 常夜燈サイト共通スタイル：ヘッダー・展開メニュー・フッター */
+
+/* スクロール方向に応じてヘッダーを隠す／出す（ゆっくり動かす） */
+
+.nav {
+  transition: transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.nav.nav--hidden {
+  transform: translateY(-100%);
+}
+
+/* ハンバーガーボタン */
+
+.nav-menu-btn {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background .25s,color .25s;
+}
+
+.nav-menu-btn:hover {
+  background: currentColor;
+}
+
+.nav-menu-btn:hover .bars span {
+  background: var(--paper);
+}
+
+.nav-menu-btn .bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 18px;
+}
+
+.nav-menu-btn .bars span {
+  display: block;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1),opacity .25s;
+  transform-origin: center;
+}
+
+.nav-menu-btn .bars span:nth-child(1) {
+  width: 100%;
+}
+
+.nav-menu-btn .bars span:nth-child(2) {
+  width: 70%;
+  align-self: flex-end;
+}
+
+.nav-menu-btn .bars span:nth-child(3) {
+  width: 100%;
+}
+
+/* 展開メニュー */
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: var(--ink);
+  color: var(--paper);
+  z-index: 49;
+  clip-path: circle(0% at calc(100% - var(--gutter) - 22px) calc(var(--nav-h) / 2));
+  transition: clip-path .55s cubic-bezier(.65,0,.35,1);
+  pointer-events: none;
+}
+
+.menu-overlay .bg-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/forhero_web.jpg');
+  background-size: cover;
+  background-position: 50% 30%;
+  opacity: 0.20;
+  filter: saturate(0.7);
+  pointer-events: none;
+}
+
+.menu-overlay .bg-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right,rgba(8,10,18,0.92) 0%,rgba(8,10,18,0.70) 50%,rgba(8,10,18,0.92) 100%);
+}
+
+.menu-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 56px) var(--gutter) 56px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(40px,6vw,96px);
+  align-items: start;
+}
+
+.menu-primary {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px,1.2vw,16px);
+  font-family: var(--serif-jp);
+  font-weight: 500;
+}
+
+.menu-primary a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 18px;
+  color: var(--paper);
+  font-size: clamp(28px,4vw,44px);
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(244,237,224,0.18);
+  transition: padding-left .35s cubic-bezier(.2,.7,.2,1),border-color .25s,color .2s;
+}
+
+.menu-primary a:hover {
+  padding-left: 14px;
+  border-bottom-color: rgba(244,237,224,0.55);
+  color: var(--glow);
+}
+
+.menu-primary a .en {
+  font-family: var(--serif-en);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  color: rgba(244,237,224,0.55);
+  align-self: center;
+}
+
+.menu-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-self: start;
+  padding-top: 6px;
+}
+
+.menu-secondary .group .k {
+  display: block;
+  font-family: var(--serif-jp);
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  color: rgba(244,237,224,0.5);
+  margin-bottom: 10px;
+}
+
+.menu-secondary a,.menu-secondary .info {
+  display: block;
+  font-family: var(--serif-jp);
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--paper);
+  letter-spacing: 0.06em;
+  padding: 3px 0;
+  transition: color .2s;
+}
+
+.menu-secondary a:hover {
+  color: var(--glow);
+}
+
+/* メニュー展開時の状態 */
+
+body.menu-open .nav-menu-btn .bars span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+body.menu-open .nav-menu-btn .bars span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+body.menu-open .nav-menu-btn .bars span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+body.menu-open .nav {
+  background: transparent!important;
+  backdrop-filter: none;
+  border-bottom: none;
+  transform: none!important;
+  transition: none;
+  z-index: 60;
+}
+
+body.menu-open .nav,body.menu-open .nav .brand, body.menu-open .nav .brand .brand-text .jp {
+  color: #f1ede2;
+}
+
+body.menu-open .nav .brand svg.mark {
+  color: #f1ede2;
+}
+
+body.menu-open .nav .brand .brand-text .en {
+  color: rgba(241,237,226,0.65);
+}
+
+body.menu-open .nav-menu-btn {
+  color: #f1ede2;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+body.menu-open .menu-overlay {
+  clip-path: circle(160% at calc(100% - var(--gutter) - 22px) calc(var(--nav-h) / 2));
+  pointer-events: auto;
+}
+
+/* フッター */
+
+.footer-col h4 {
+  font-family: var(--serif-jp);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: none;
+  margin: 0;
+}
+
+.footer-col a {
+  font-family: var(--serif-jp);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.footer-bottom {
+  font-family: var(--serif-jp);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: none;
+}
+
+.footer-inner {
+  align-items: start;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--serif-jp);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1;
+}
+
+.footer-brand .jp {
+  margin: 0;
+}
+
+.footer-brand .en {
+  font-family: var(--serif-en);
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.footer-brand .mark {
+  display: block;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+/* レスポンシブ */
+
+@media(max-width:860px) {
+  .menu-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: calc(var(--nav-h) + 32px);
+    align-items: start;
+  }
+  .menu-primary a {
+    grid-template-columns: 1fr;
+  }
+  .menu-primary a .en {
+    display: none;
+  }
+}
+
+/* 透過ナビ */
+
+/* ヒーロー夜景に重なるときの透過ナビ（home のみ作用） */
+
+.nav.on-night {
+  background: linear-gradient(to bottom,rgba(8,10,18,0.55),rgba(8,10,18,0.15));
+  border-bottom: none;
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+.nav.on-night, .nav.on-night .brand, .nav.on-night .brand .brand-text .jp {
+  color: #f1ede2;
+}
+
+.nav.on-night .brand svg.mark {
+  color: #f1ede2;
+}
+
+.nav.on-night .brand .brand-text .en {
+  color: rgba(241,237,226,0.65);
+}
+
+/* 没入ダークテーマ（ホーム・アプリ紹介）：固定の夜景の上に全要素を乗せる */
+
+body.theme-night {
+  background: linear-gradient(to bottom, rgba(8,10,18,0.42), rgba(8,10,18,0.66)),
+      url('../assets/forhero_web.jpg') center / cover fixed no-repeat;
+  background-color: #0a0d16;
+  color: #f1ede2;
+}
+
+/* 各セクションは固定背景を透かす（自前の背景は持たせない） */
+
+body.theme-night .hero,
+body.theme-night .app-hero,
+body.theme-night .features {
+  background: transparent;
+}
+
+body.theme-night .features {
+  border-top: none;
+}
+
+body.theme-night .hero .bg,
+body.theme-night .app-hero .bg {
+  display: none;
+}
+
+/* ヘッダーは独立したバーにせず、常に夜景に完全に溶け込ませる（帯・ぼかしなし）。
+   下スクロールで隠れるため、視認性確保のためのスクリムは不要。 */
+
+body.theme-night .nav {
+  background: transparent;
+  border-bottom: none;
+  color: #f4f0e4;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* 夜景の上ではボタンのホバーを明色塗りにしない（×が消えないように） */
+
+body.theme-night .nav-menu-btn:hover {
+  background: rgba(244,240,228,0.14);
+}
+
+body.theme-night .nav-menu-btn:hover .bars span {
+  background: #f4f0e4;
+}
+
+body.theme-night .brand, body.theme-night .brand svg.mark, body.theme-night .brand .brand-text .jp {
+  color: #f4f0e4;
+}
+
+body.theme-night .brand .brand-text .en {
+  color: rgba(241,237,226,0.6);
+}
+
+/* フッターも背景の上に透過で乗せる（境界線は出さない） */
+
+body.theme-night footer {
+  background: transparent;
+  border-top: none;
+}
+
+body.theme-night .footer-brand {
+  color: #f4f0e4;
+}
+
+body.theme-night .footer-brand .jp, body.theme-night .footer-brand .en, body.theme-night .footer-col h4, body.theme-night .footer-col a {
+  color: rgba(241,237,226,0.72);
+}
+
+body.theme-night .footer-col a:hover {
+  color: #f4f0e4;
+}

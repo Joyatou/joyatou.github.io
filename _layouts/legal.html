@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<main>
+  <div class="doc-header">
+    <div class="container">
+      <a class="back" href="/calorie-forecast/">カロリー予報</a>
+      <h1{% if page.compact %} class="compact"{% endif %}>{{ page.heading }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="doc-body">
+      {{ content }}
+    </div>
+  </div>
+</main>
