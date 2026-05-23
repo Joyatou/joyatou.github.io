@@ -1,7 +1,8 @@
+# Jekyll の生成物・キャッシュ
 _site/
 .jekyll-cache/
 .jekyll-metadata
 .sass-cache/
-.claude/
-Gemfile.lock
+
+# macOS
 .DS_Store
